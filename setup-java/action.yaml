@@ -5,6 +5,7 @@ inputs:
   java-version:
     default: '16'
 
+
 runs:
   using: "composite"
   steps:
@@ -13,3 +14,13 @@ runs:
       with:
         distribution: ${{ inputs.distribution  }}
         java-version: ${{ inputs.java-version  }}
+
+    - uses: s4u/maven-settings-action@v2.4.1
+      with:
+        servers: |
+          [{"id": "github-kepler",
+            "username": "GITHUB",
+            "password": "${{secrets.GITHUB_TOKEN}}"},
+           {"id": "github-transit",
+            "username": "GITHUB"
+            "password": "${{secrets.GITHUB_TOKEN}}"}]
