@@ -4,6 +4,10 @@ inputs:
     default: 'temurin'
   java-version:
     default: '16'
+  username:
+    default: "GITHUB"
+  token:
+    required: true
 
 runs:
   using: "composite"
@@ -18,8 +22,8 @@ runs:
       with:
         servers: |
           [{"id": "github-kepler",
-            "username": "GITHUB",
-            "password": "${{secrets.GITHUB_TOKEN}}"},
+            "username": "${{ inputs.username }}",
+            "password": "${{ inputs.token }}"},
            {"id": "github-transit",
-            "username": "GITHUB"
-            "password": "${{secrets.GITHUB_TOKEN}}"}]
+            "username": "${{ inputs.username }}",
+            "password": "${{ inputs.token }}"}]
