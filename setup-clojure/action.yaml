@@ -6,9 +6,3 @@ runs:
     - uses: DeLaGuardo/setup-clojure@3.7
       with:
         cli: latest
-
-    - name: Setup Babashka
-      run: |
-        bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
-      shell: bash
-

@@ -1,0 +1,8 @@
+name: "Setup Babashka"
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Babashka
+      run: |
+        bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
+      shell: bash
