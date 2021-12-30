@@ -13,6 +13,8 @@ runs:
   using: "composite"
   steps:
     - run: echo "$MYVAR"
+      shell: bash
+
     - name: Setup Java
       uses: actions/setup-java@v2
       with:
