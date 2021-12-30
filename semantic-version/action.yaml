@@ -14,7 +14,7 @@ runs:
     - id: current
       run: |
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        VERSION=$(git tag -l --sort=-creatordate | head -n 1)
+        VERSION=$(git tag -l --sort=-creatordate | head -n 1 | tr -d v)
         echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
 
