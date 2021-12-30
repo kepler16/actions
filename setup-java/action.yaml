@@ -28,7 +28,7 @@ runs:
         servers: |
           [{"id": "github-kepler",
             "username": "${{ inputs.username }}",
-            "password": "${{ $GITHUB_TOKEN }}"},
+            "password": "$GITHUB_TOKEN"},
            {"id": "github-transit",
             "username": "${{ inputs.username }}",
-            "password": "${{ $GITHUB_TOKEN }}"}]
+            "password": "$GITHUB_TOKEN"}]
