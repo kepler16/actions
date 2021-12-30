@@ -7,14 +7,14 @@ inputs:
   username:
     default: 'GITHUB'
   token:
-    default: $GITHUB_TOKEN
+    default: "$GITHUB_TOKEN"
 
 runs:
   using: "composite"
   steps:
     - run: |
-        echo "env $GITHUB_TOKEN"
         echo "inputs ${{ inputs.token }}"
+        echo "env $GITHUB_TOKEN"
       shell: bash
 
     - name: Setup Java
