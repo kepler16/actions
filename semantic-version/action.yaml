@@ -1,5 +1,7 @@
 name: "Semantic version"
 inputs:
+  init-version:
+    default: "1.0.0"
   token:
     required: true
     default: "$GITHUB_TOKEN"
@@ -23,7 +25,7 @@ runs:
     - id: next
       run: |
         npx semantic-release --dry-run --branches=$(git branch --show)
-        VERSION=$(test -e .VERSION && cat .VERSION)
+        VERSION=$(test -e .VERSION && cat .VERSION || echo "${{ inputs.init-version }}")
         echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
       env:
