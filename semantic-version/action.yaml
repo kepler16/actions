@@ -14,7 +14,7 @@ runs:
     - id: current
       run: |
         VERSION=$(git describe --abbrev=0 --tags | tr -d v)
-        echo "::set-output name=var1::$(echo $VERSION)"
+        echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
 
     - id: next
