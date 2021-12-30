@@ -25,7 +25,8 @@ runs:
     - id: next
       run: |
         npx semantic-release --dry-run --branches=$(git branch --show)
-        VERSION=$(test -e .VERSION && cat .VERSION || echo "${{ inputs.init-version }}")
+        SEMVER=$(test -e .VERSION && cat .VERSION)
+        VERSION=$(test ${{ steps.current.outputs.version }} && echo "$SEMVER" || echo "${{ inputs.init-version }}")
         echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
       env:
