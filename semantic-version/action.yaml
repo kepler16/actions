@@ -13,7 +13,8 @@ runs:
   steps:
     - id: current
       run: |
-        VERSION=$(git describe --abbrev=0 --tags | tr -d v)
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        VERSION=$(git tag -l --sort=-creatordate | head -n 1)
         echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
 
