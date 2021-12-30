@@ -1,0 +1,25 @@
+name: "Semantic version"
+inputs:
+  token:
+    required: true
+outputs:
+  current-version:
+    value: ${{ steps.current.outputs.version }}
+  next-version:
+    value: ${{ steps.next.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: current
+      run: |
+        VERSION=$(git describe --abbrev=0 --tags | tr -d v)
+        echo "::set-output name=version::$(echo $VERSION)""
+
+    - id: next
+      run: |
+        npx semantic-release --dry-run --branches=$(git branch --show)
+        VERSION=$(test -e .VERSION && cat .VERSION)
+        echo "::set-output name=version::$(echo $VERSION)""
+      env:
+        GITHUB_TOKEN: ${{inputs.token}}
