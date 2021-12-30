@@ -5,18 +5,14 @@ inputs:
   java-version:
     default: '16'
   username:
-    default: 'GITHUB'
+    default: "GITHUB"
   token:
+    required: true
     default: "$GITHUB_TOKEN"
 
 runs:
   using: "composite"
   steps:
-    - run: |
-        echo "inputs ${{ inputs.token }}"
-        echo "env $GITHUB_TOKEN"
-      shell: bash
-
     - name: Setup Java
       uses: actions/setup-java@v2
       with:
@@ -28,7 +24,7 @@ runs:
         servers: |
           [{"id": "github-kepler",
             "username": "${{ inputs.username }}",
-            "password": "$GITHUB_TOKEN"},
+            "password": "${{ inputs.token }}"},
            {"id": "github-transit",
             "username": "${{ inputs.username }}",
-            "password": "$GITHUB_TOKEN"}]
+            "password": "${{ inputs.token }}"}]

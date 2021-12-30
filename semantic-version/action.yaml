@@ -2,6 +2,8 @@ name: "Semantic version"
 inputs:
   token:
     required: true
+    default: "$GITHUB_TOKEN"
+
 outputs:
   current-version:
     value: ${{ steps.current.outputs.version }}
