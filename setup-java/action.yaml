@@ -12,6 +12,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: echo "$MYVAR"
     - name: Setup Java
       uses: actions/setup-java@v2
       with:
