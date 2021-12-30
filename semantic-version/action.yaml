@@ -15,11 +15,13 @@ runs:
       run: |
         VERSION=$(git describe --abbrev=0 --tags | tr -d v)
         echo "::set-output name=var1::$(echo $VERSION)"
+      shell: bash
 
     - id: next
       run: |
         npx semantic-release --dry-run --branches=$(git branch --show)
         VERSION=$(test -e .VERSION && cat .VERSION)
         echo "::set-output name=version::$(echo $VERSION)"
+      shell: bash
       env:
         GITHUB_TOKEN: ${{inputs.token}}
