@@ -1,0 +1,22 @@
+name: "Setup Node"
+inputs:
+  node-version:
+    default: "16"
+  cache:
+    default: "npm"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.cache }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-${{ hashFiles('package-lock.json') }}
+        restore-keys: npm-
