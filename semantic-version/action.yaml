@@ -29,6 +29,7 @@ runs:
         cp -rv ${{ inputs.path }}/semantic-version/.release-bot ./
         cd ./.release-bot
         ls -al
+      sehll: bash
 
     - id: next
       run: |
