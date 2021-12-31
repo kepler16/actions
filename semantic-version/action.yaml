@@ -19,20 +19,22 @@ runs:
   using: "composite"
   steps:
     - id: current
+      name: Determine current version from git tags
       run: |
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         VERSION=$(git tag -l --sort=-creatordate | head -n 1 | tr -d v)
         echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
 
-    - run: |
+    - name: Create folder with alternative config file
+      run: |
         cp -rv ${{ inputs.path }}/semantic-version/.release-bot ./
-        cd ./.release-bot
-        ls -al
       shell: bash
 
     - id: next
+      name: Calculate next version with semantic-release
       run: |
+        cd ./.release-bot
         npx semantic-release --dry-run --branches=$(git branch --show)
         SEMVER=$(test -e .VERSION && cat .VERSION)
         VERSION=$(test ${{ steps.current.outputs.version }} && echo "$SEMVER" || echo "${{ inputs.init-version }}")
