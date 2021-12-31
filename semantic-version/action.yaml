@@ -36,6 +36,7 @@ runs:
         cd ./.release-bot
         npx semantic-release --dry-run --branches=$(git branch --show)
         ls -al
+      shell: bash
       env:
         GITHUB_TOKEN: ${{inputs.token}}
 
