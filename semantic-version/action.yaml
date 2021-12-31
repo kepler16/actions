@@ -7,7 +7,7 @@ inputs:
     default: "$GITHUB_TOKEN"
   path:
     required: true
-    default: "$SEMANTIC_PAH"
+    default: "$SEMANTIC_PATH"
 
 outputs:
   current-version:
