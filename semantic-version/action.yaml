@@ -5,6 +5,9 @@ inputs:
   token:
     required: true
     default: "$GITHUB_TOKEN"
+  path:
+    required: true
+    default: "$SEMANTIC_PAH"
 
 outputs:
   current-version:
@@ -21,6 +24,11 @@ runs:
         VERSION=$(git tag -l --sort=-creatordate | head -n 1 | tr -d v)
         echo "::set-output name=version::$(echo $VERSION)"
       shell: bash
+
+    - run: |
+        cp -rv ${{ inputs.path }}/semantic-version/.release-bot ./
+        cd ./.release-bot
+        ls -al
 
     - id: next
       run: |
