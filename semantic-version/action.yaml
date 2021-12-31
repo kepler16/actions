@@ -31,14 +31,18 @@ runs:
         cp -rv ${{ inputs.path }}/semantic-version/.release-bot ./
       shell: bash
 
-    - id: next
-      name: Calculate next version with semantic-release
+    - name: Run semantic release
       run: |
         cd ./.release-bot
         npx semantic-release --dry-run --branches=$(git branch --show)
-        SEMVER=$(test -e .VERSION && cat .VERSION)
-        VERSION=$(test ${{ steps.current.outputs.version }} && echo "$SEMVER" || echo "${{ inputs.init-version }}")
-        echo "::set-output name=version::$(echo $VERSION)"
-      shell: bash
+        ls -al
       env:
         GITHUB_TOKEN: ${{inputs.token}}
+
+    - id: next
+      name: Calculate next version with semantic-release
+      run: |
+        SEMVER=$(test -e .VERSION && cat .VERSION)
+        VERSION=$(test "${{ steps.current.outputs.version }}" && echo "$SEMVER" || echo "${{ inputs.init-version }}")
+        echo "::set-output name=version::$(echo $VERSION)"
+      shell: bash
