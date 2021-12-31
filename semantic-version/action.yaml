@@ -35,7 +35,6 @@ runs:
       run: |
         cd ./.release-bot
         npx semantic-release --dry-run --branches=$(git branch --show)
-        ls -al
       shell: bash
       env:
         GITHUB_TOKEN: ${{inputs.token}}
@@ -43,5 +42,7 @@ runs:
     - id: next
       name: Calculate next version with semantic-release
       run: |
-        echo "::set-output name=version::''"
+        SEMVER=$(test -e .VERSION && cat .VERSION || '')
+        VERSION=$(test "${{ steps.current.outputs.version }}" && echo "$SEMVER" || echo "${{ inputs.init-version }}")
+        echo "::set-output name=version::$(echo $SEMVER)"
       shell: bash
