@@ -45,5 +45,5 @@ runs:
       run: |
         SEMVER=$(test -e .VERSION && cat .VERSION)
         VERSION=$(test "${{ steps.current.outputs.version }}" && echo "$SEMVER" || echo "${{ inputs.init-version }}")
-        test "$VERSION" && echo "::set-output name=version::$(echo $VERSION)"
+        echo "::set-output name=version::''"
       shell: bash
