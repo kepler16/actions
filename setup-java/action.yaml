@@ -8,7 +8,7 @@ inputs:
     default: "GITHUB"
   token:
     required: true
-    default: ${{ env.GITHUB_TOKEN }}
+    default: $GITHUB_TOKEN
 
 runs:
   using: "composite"
@@ -22,6 +22,7 @@ runs:
     - run: |
         echo "username ${{ inputs.username }}"
         echo "password ${{ inputs.token }}"
+        echo "pass 2 ${{ env.GITHUB_TOKEN }}"
       shell: bash
 
     - uses: s4u/maven-settings-action@v2.4.1
@@ -29,7 +30,7 @@ runs:
         servers: |
           [{"id": "github-kepler",
             "username": "${{ inputs.username }}",
-            "password": "${{ inputs.token }}"},
+            "password": "${{ env.GITHUB_TOKEN }}"},
            {"id": "github-transit",
             "username": "${{ inputs.username }}",
-            "password": "${{ inputs.token }}"}]
+            "password": "${{ env.GITHUB_TOKEN }}"}]
