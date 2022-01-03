@@ -12,18 +12,15 @@ inputs:
 
 runs:
   using: "composite"
+  env:
+    GITHUB_TOKEN: ${{inputs.token}}
+
   steps:
     - name: Setup Java
       uses: actions/setup-java@v2
       with:
         distribution: ${{ inputs.distribution  }}
         java-version: ${{ inputs.java-version  }}
-
-    - run: |
-        echo "username ${{ inputs.username }}"
-        echo "password ${{ inputs.token }}"
-        echo "pass 2 ${{ env.GITHUB_TOKEN }}"
-      shell: bash
 
     - uses: s4u/maven-settings-action@v2.4.1
       with:
