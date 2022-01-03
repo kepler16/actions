@@ -43,6 +43,8 @@ runs:
       name: Calculate next version with semantic-release
       run: |
         NEXTVER=$(test -e .VERSION && cat .VERSION || echo "")
+        echo "next 1 $NEXTVER"
         VERSION=$(test "${{ steps.current.outputs.version }}" && (test $NEXTVER && echo "$NEXTVER" || echo "${{ steps.current.outputs.version }}") || echo "${{ inputs.init-version }}")
+        echo "vvv $VERSION"
         echo "::set-output name=version::$(test $VERSION && echo $VERSION || echo "''")"
       shell: bash
