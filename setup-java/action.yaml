@@ -19,6 +19,10 @@ runs:
         distribution: ${{ inputs.distribution  }}
         java-version: ${{ inputs.java-version  }}
 
+    - run: |
+        echo "username ${{ inputs.username }}"
+        echo "password ${{ inputs.token }}"
+
     - uses: s4u/maven-settings-action@v2.4.1
       with:
         servers: |
