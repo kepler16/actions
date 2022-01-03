@@ -42,7 +42,7 @@ runs:
     - id: next
       name: Calculate next version with semantic-release
       run: |
-        SEMVER=$(test -e .VERSION && cat .VERSION || echo "")
-        VERSION=$(test "${{ steps.current.outputs.version }}" && echo "$SEMVER" || echo "${{ inputs.init-version }}")
-        echo "::set-output name=version::'$(echo $SEMVER)'"
+        NEXTVER=$(test -e .VERSION && cat .VERSION || echo "")
+        VERSION=$(test "${{ steps.current.outputs.version }}" && (test $NEXTVER && echo "$NEXTVER" || echo "${{ steps.current.outputs.version }}") || echo "${{ inputs.init-version }}")
+        echo "::set-output name=version::'$(echo $NEXTVER)'"
       shell: bash
