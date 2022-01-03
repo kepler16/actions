@@ -22,6 +22,7 @@ runs:
     - run: |
         echo "username ${{ inputs.username }}"
         echo "password ${{ inputs.token }}"
+      shell: bash
 
     - uses: s4u/maven-settings-action@v2.4.1
       with:
