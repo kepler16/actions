@@ -8,7 +8,7 @@ inputs:
     default: "GITHUB"
   token:
     required: true
-    default: "$GITHUB_TOKEN"
+    default: ${{ env.GITHUB_TOKEN }}
 
 runs:
   using: "composite"
