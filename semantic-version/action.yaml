@@ -27,24 +27,22 @@ runs:
       shell: bash
 
     - name: Create folder with alternative config file
-      run: |
-        cp -rv ${{ inputs.path }}/semantic-version/.release-bot ./
+      run: cp -rv ${{ inputs.path }}/semantic-version/.release-bot ./
       shell: bash
 
-    - name: Run semantic release
-      run: |
-        cd ./.release-bot
-        npx semantic-release --dry-run --branches=$(git branch --show)
+    - name: semantic-release
+      working-directory: ./.release-bot
       shell: bash
       env:
         GITHUB_TOKEN: ${{inputs.token}}
+      run: npx semantic-release --dry-run --branches=$(git branch --show)
 
     - id: next
-      name: Calculate next version with semantic-release
+      working-directory: ./.release-bot
+      shell: bash
       run: |
         NEXTVER=$(test -e .VERSION && cat .VERSION || echo "")
         echo "next 1 $NEXTVER"
         VERSION=$(test "${{ steps.current.outputs.version }}" && (test $NEXTVER && echo "$NEXTVER" || echo "${{ steps.current.outputs.version }}") || echo "${{ inputs.init-version }}")
         echo "vvv $VERSION"
         echo "::set-output name=version::$(test $VERSION && echo $VERSION || echo "''")"
-      shell: bash
