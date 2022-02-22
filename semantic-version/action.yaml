@@ -42,7 +42,7 @@ runs:
       shell: bash
       run: |
         NEXTVER=$(test -e .VERSION && cat .VERSION || echo "")
-        echo "next 1 $NEXTVER"
+        echo "semver .VERSION $NEXTVER"
         VERSION=$(test "${{ steps.current.outputs.version }}" && (test $NEXTVER && echo "$NEXTVER" || echo "${{ steps.current.outputs.version }}") || echo "${{ inputs.init-version }}")
-        echo "vvv $VERSION"
+        echo "next version $VERSION"
         echo "::set-output name=version::$(test $VERSION && echo $VERSION || echo "''")"
