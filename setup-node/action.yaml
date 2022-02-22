@@ -4,6 +4,10 @@ inputs:
     default: "16"
   cache:
     default: "npm"
+  use-cache:
+    default: "yes"
+  package:
+    default: "npm"
 
 runs:
   using: "composite"
@@ -14,7 +18,8 @@ runs:
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.cache }}
 
-    - name: Cache dependencies
+    - name: Cache npm dependencies
+      if: ${{ inputs.use-cache == 'yes' && inputs.package == 'npm' }}
       uses: actions/cache@v2
       with:
         path: ~/.npm
