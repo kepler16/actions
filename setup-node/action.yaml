@@ -16,10 +16,16 @@ runs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ inputs.node-version }}
-        cache: ${{ inputs.cache }}
+        cache: ${{ inputs.package }}
+
+    - name: Setup pnpm
+      if: inputs.package == 'pnpm'
+      uses: pnpm/action-setup@v2.0.1
+      with:
+        version: latest
 
     - name: Cache npm dependencies
-      if: ${{ inputs.use-cache == 'yes' && inputs.package == 'npm' }}
+      if: inputs.use-cache == 'yes' && inputs.package == 'npm' && inputs.cache == 'npm'
       uses: actions/cache@v2
       with:
         path: ~/.npm
