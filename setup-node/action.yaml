@@ -9,11 +9,13 @@ inputs:
   package:
     default: "npm"
   always-auth:
-    default: false
+    default: true
   registry-url:
     description: "npm registry url"
+    default: "https://npm.pkg.github.com"
   scope:
     description: "npm scope if any"
+    default: "@transit-engineering"
 
 runs:
   using: "composite"
