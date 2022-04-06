@@ -8,6 +8,12 @@ inputs:
     default: "yes"
   package:
     default: "npm"
+  always-auth:
+    default: false
+  registry-url:
+    description: "npm registry url"
+  scope:
+    description: "npm scope if any"
 
 runs:
   using: "composite"
@@ -21,6 +27,9 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
+        always-auth: ${{ inputs.always-auth }}
+        registry-url: ${{ inputs.registry-url }}
+        scope: ${{ inputs.scope }}
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.package }}
 
