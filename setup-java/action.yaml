@@ -5,13 +5,12 @@ inputs:
   java-version:
     default: '16'
   username:
-    default: "GITHUB"
+    default: 'GITHUB'
   token:
     required: true
-    default: $GITHUB_TOKEN
 
 runs:
-  using: "composite"
+  using: 'composite'
 
   steps:
     - name: Setup Java
@@ -25,7 +24,7 @@ runs:
         servers: |
           [{"id": "github-kepler",
             "username": "${{ inputs.username }}",
-            "password": "${{ env.GITHUB_TOKEN }}"},
+            "password": "${{ inputs.token }}"},
            {"id": "github-transit",
             "username": "${{ inputs.username }}",
-            "password": "${{ env.GITHUB_TOKEN }}"}]
+            "password": "${{ inputs.token }}"}]
