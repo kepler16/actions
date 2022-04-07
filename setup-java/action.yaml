@@ -7,6 +7,7 @@ inputs:
   username:
     default: 'GITHUB'
   token:
+    default: ${{ env.GITHUB_TOKEN }}
     required: true
 
 runs:
