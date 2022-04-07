@@ -7,8 +7,7 @@ inputs:
   username:
     default: 'GITHUB'
   token:
-    default: ${{ env.GITHUB_TOKEN }}
-    required: true
+    description: "GITHUB_TOKEN"
 
 runs:
   using: 'composite'
@@ -21,11 +20,13 @@ runs:
         java-version: ${{ inputs.java-version  }}
 
     - uses: s4u/maven-settings-action@v2.4.1
+      env:
+        PASSWORD: ${{ inputs.token }} || ${{ env.GITHUB_TOKEN }}
       with:
         servers: |
           [{"id": "github-kepler",
             "username": "${{ inputs.username }}",
-            "password": "${{ inputs.token }}"},
+            "password": "$PASSWORD"},
            {"id": "github-transit",
             "username": "${{ inputs.username }}",
-            "password": "${{ inputs.token }}"}]
+            "password": "$PASSWORD""}]
