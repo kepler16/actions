@@ -27,6 +27,16 @@ runs:
         version: latest
 
     - name: Setup Node
+      if: inputs.use-cache != 'yes'
+      uses: actions/setup-node@v2
+      with:
+        always-auth: ${{ inputs.always-auth }}
+        registry-url: ${{ inputs.registry-url }}
+        scope: ${{ inputs.scope }}
+        node-version: ${{ inputs.node-version }}
+
+    - name: Setup Node
+      if: inputs.use-cache == 'yes'
       uses: actions/setup-node@v2
       with:
         always-auth: ${{ inputs.always-auth }}
