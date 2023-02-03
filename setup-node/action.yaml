@@ -1,7 +1,7 @@
 name: "Setup Node"
 inputs:
   node-version:
-    default: "16"
+    default: "18"
   cache:
     default: "npm"
   use-cache:
