@@ -40,4 +40,4 @@ runs:
         scope: ${{ inputs.scope }}
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.package }}
-        cache-dependency-path: ${{ cache-dependency-path }}
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
