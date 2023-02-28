@@ -1,0 +1,41 @@
+name: "Setup Node With Pnpm"
+inputs:
+  node-version:
+    default: "18"
+  cache:
+    default: "pnpm"
+  always-auth:
+    default: true
+  registry-url:
+    description: "npm registry url"
+    default: "https://npm.pkg.github.com"
+  scope:
+    description: "npm scope if any"
+    default: "@transit-engineering"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - name: Setup Node
+      if: inputs.cache != 'pnpm'
+      uses: actions/setup-node@v3
+      with:
+        always-auth: ${{ inputs.always-auth }}
+        registry-url: ${{ inputs.registry-url }}
+        scope: ${{ inputs.scope }}
+        node-version: ${{ inputs.node-version }}
+
+    - name: Setup Node
+      if: inputs.cache == 'pnpm'
+      uses: actions/setup-node@v3
+      with:
+        always-auth: ${{ inputs.always-auth }}
+        registry-url: ${{ inputs.registry-url }}
+        scope: ${{ inputs.scope }}
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.package }}
