@@ -3,7 +3,7 @@ inputs:
   credentials_json:
     description: service account key
   project_id:
-    default: "transit_root"
+    default: "transit-root"
   show_info:
     default: "no"
 
