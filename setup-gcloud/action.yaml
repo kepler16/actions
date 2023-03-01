@@ -1,0 +1,23 @@
+name: "Setup Gooogle Cloud SDK"
+inputs:
+  project_id:
+    default: "transit_root"
+  show_info:
+    default: "no"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Gcloud Authentication
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.KEPLER_GOOGLE_SERVICE_ACCOUNT_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ inputs.project_id }}
+
+    - name: Use gcloud CLI
+      if: inputs.show_info != 'yes'
+      run: gcloud info
