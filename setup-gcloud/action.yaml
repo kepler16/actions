@@ -1,5 +1,7 @@
 name: "Setup Gooogle Cloud SDK"
 inputs:
+  credentials_json:
+    description: service account key
   project_id:
     default: "transit_root"
   show_info:
@@ -11,7 +13,7 @@ runs:
     - name: Gcloud Authentication
       uses: google-github-actions/auth@v1
       with:
-        credentials_json: ${{ secrets.KEPLER_GOOGLE_SERVICE_ACCOUNT_KEY }}
+        credentials_json: ${{ inputs.credentials_json }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
