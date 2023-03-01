@@ -13,7 +13,7 @@ runs:
     - name: Gcloud Authentication
       uses: google-github-actions/auth@v1
       with:
-        credentials_json: ${{ inputs.credentials_json }}
+        credentials_json: ${{ env.GCS_CREDENTIALS || inputs.credentials_json }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
