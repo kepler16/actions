@@ -21,6 +21,6 @@ runs:
         project_id: ${{ inputs.project_id }}
 
     - name: Use gcloud CLI
-      if: inputs.show_info != 'yes'
+      if: inputs.show_info == 'yes'
       shell: bash
       run: gcloud info
