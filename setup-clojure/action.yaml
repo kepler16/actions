@@ -1,4 +1,9 @@
 name: "Setup Clojure"
+inputs:
+  clojure-version:
+    default: "latest"
+  use-cache:
+    default: "yes"
 
 runs:
   using: "composite"
@@ -7,5 +12,20 @@ runs:
     - name: Install Clojure Tools
       uses: DeLaGuardo/setup-clojure@10.2
       with:
-        cli: latest
+        cli: {{ inputs.clojure-version }}
         bb: latest
+
+    - name: Cache Clojure Dependencies
+      if: inputs.use-cache == 'yes'
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.gitlibs
+          ~/.deps.clj
+        # List all files containing dependencies:
+        key: cljdeps-${{ hashFiles('deps.edn') }}
+        # key: cljdeps-${{ hashFiles('deps.edn', 'bb.edn') }}
+        # key: cljdeps-${{ hashFiles('project.clj') }}
+        # key: cljdeps-${{ hashFiles('build.boot') }}
+        restore-keys: cljdeps-
