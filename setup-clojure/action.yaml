@@ -12,7 +12,7 @@ runs:
     - name: Install Clojure Tools
       uses: DeLaGuardo/setup-clojure@10.2
       with:
-        cli: {{ inputs.clojure-version }}
+        cli: ${{ inputs.clojure-version }}
         bb: latest
 
     - name: Cache Clojure Dependencies
