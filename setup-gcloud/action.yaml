@@ -22,4 +22,5 @@ runs:
 
     - name: Use gcloud CLI
       if: inputs.show_info != 'yes'
+      shell: bash
       run: gcloud info
