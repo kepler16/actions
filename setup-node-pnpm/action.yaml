@@ -42,10 +42,13 @@ runs:
       run: |
         echo 'STORE_PATH=$(pnpm store path)' >> $GITHUB_OUTPUT
 
+    - name: tet store path
+      run: echo 'path:' ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+
     - uses: actions/cache@v3
       name: Setup pnpm cache
       if: inputs.use-cache == 'yes'
       with:
-        path: ${{ inputs.path || steps.pnpm-cache.outputs.STORE_PATH }}
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
         key: ${{ inputs.key }}
         restore-keys: ${{ inputs.restore-keys }}
