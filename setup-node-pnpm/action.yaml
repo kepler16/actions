@@ -2,8 +2,8 @@ name: "Setup Node With Pnpm"
 inputs:
   node-version:
     default: "18"
-  cache:
-    default: "pnpm"
+  use-cache:
+    default: "yes"
   always-auth:
     default: true
   registry-url:
@@ -12,8 +12,7 @@ inputs:
   scope:
     description: "npm scope if any"
     default: "@transit-engineering"
-  cache-dependency-path:
-    default: "./pnpm-lock.yaml"
+
 runs:
   using: "composite"
   steps:
@@ -23,7 +22,6 @@ runs:
         version: latest
 
     - name: Setup Node
-      if: inputs.cache != 'pnpm'
       uses: actions/setup-node@v3
       with:
         always-auth: ${{ inputs.always-auth }}
@@ -31,13 +29,18 @@ runs:
         scope: ${{ inputs.scope }}
         node-version: ${{ inputs.node-version }}
 
-    - name: Setup Node
-      if: inputs.cache == 'pnpm'
-      uses: actions/setup-node@v3
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      if: inputs.use-cache == 'yes'
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      if: inputs.use-cache == 'yes'
       with:
-        always-auth: ${{ inputs.always-auth }}
-        registry-url: ${{ inputs.registry-url }}
-        scope: ${{ inputs.scope }}
-        node-version: ${{ inputs.node-version }}
-        cache: ${{ inputs.package }}
-        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
