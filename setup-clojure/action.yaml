@@ -1,9 +1,20 @@
 name: "Setup Clojure"
 inputs:
+  paths:
+    default: '**/deps.edn'
   clojure-version:
     default: "latest"
   use-cache:
-    default: "yes"
+    default: 'yes'
+  key:
+    default: cljdeps-${{ hashFiles('**/deps.edn') }}
+  restore-keys:
+    default: cljdeps-
+  path:
+    default: |
+      ~/.m2/repository
+      ~/.gitlibs
+      ~/.deps.clj
 
 runs:
   using: "composite"
@@ -19,13 +30,6 @@ runs:
       if: inputs.use-cache == 'yes'
       uses: actions/cache@v3
       with:
-        path: |
-          ~/.m2/repository
-          ~/.gitlibs
-          ~/.deps.clj
-        # List all files containing dependencies:
-        key: cljdeps-${{ hashFiles('**/deps.edn') }}
-        # key: cljdeps-${{ hashFiles('deps.edn', 'bb.edn') }}
-        # key: cljdeps-${{ hashFiles('project.clj') }}
-        # key: cljdeps-${{ hashFiles('build.boot') }}
-        restore-keys: cljdeps-
+        path: ${{ inputs.path }}
+        keys: ${{ inputs.key }}
+        restore-keys: ${{ inputs.restore-keys }}
