@@ -47,5 +47,5 @@ runs:
       if: inputs.use-cache == 'yes'
       with:
         path: ${{ inputs.path || steps.pnpm-cache.outputs.STORE_PATH }}
-        keys: ${{ inputs.key }}
+        key: ${{ inputs.key }}
         restore-keys: ${{ inputs.restore-keys }}
