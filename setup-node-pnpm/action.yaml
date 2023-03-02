@@ -43,6 +43,7 @@ runs:
         echo 'STORE_PATH=$(pnpm store path)' >> $GITHUB_OUTPUT
 
     - name: tet store path
+      shell: bash
       run: echo 'path:' ${{ steps.pnpm-cache.outputs.STORE_PATH }}
 
     - uses: actions/cache@v3
